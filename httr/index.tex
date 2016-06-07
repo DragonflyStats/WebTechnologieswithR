@@ -1,0 +1,115 @@
+\subsection{using the httr package to retrieve data from apis in R}
+
+For a project I’m working on, I needed to access residential electricity rates and associated coordinate information (lat/long) for locations in the US. After a little searching, I found that data.gov offers the rate information in two forms: a static list of approximate rates by region and an API, which returns annual average utility rates ($/kWH) for residential, commercial, and industrial users. Most of my project work will take place in R so I thought why not see how well APIs interact with it. I came across the “httr” package, which for my purposes, worked extremely well.
+
+For this tutorial, we are only going to look at the GET() command in httr. You can view the full list of functions in the httr package here. The GET() command will access the API, provide it some request parameters, and receive an output. For theUtility Rate API, the request parameters are api_key, address, lat, and lon. You can request the API Key from the previous link. Format (json or xml) is technically a request parameter as well. For the purposes of this tutorial we will be using json for all requests.
+
+
+
+\begin{framed}
+\begin{verbatim}
+## Please note that you must replace the key below (“sample_key”)with your own key for this script to work
+## You can get your own key directly from http://www.data.gov/developers/apis
+install.packages(“httr“)
+library(httr)
+# Data.gov Utility Rates API
+sample2 <- GET(“http://api.data.gov/nrel/utility_rates/v3.json?api_key=sample_key&address=1600+Amphitheatre+Parkway,+Mountain+View,+CA“)
+content(sample2)
+# Or
+key <- “sample_key“
+add1 <- “1600 Amphitheatre Parkway, Mountain View, CA“
+sample2 <- GET(“http://api.data.gov/nrel/utility_rates/v3.json“, query = list(api_key = key, address = add1))
+result2 <- content(sample2)
+result2$outputs$utility_info[[1]]$utility_name
+result2$outputs$residential
+#> result2$outputs$utility_info[[1]]$utility_name
+#[1] “Pacific Gas & Electric Co”
+#> result2$outputs$residential
+#[1] 0.1559
+\end{verbatim}
+\end{framed}
+In the sample code above, you can see that there are two ways to use the GET() command. You can either append all the request parameters directly to the API url as shown in line 7 or you can use the query option in GET() and include a list of keys. I prefer the second option because it allows you to change individual key values more easily. In either case, the content() command will produce the same output. In my case, I wanted specific values from content(sample2). You can do this by adding the subscripts from the content(sample2) command output, see lines 14 and 15.
+The above code gives me the necessary utility information and residential electricity rate by location. But I also want coordinate information, which is not available from this API. Luckily, the Google Maps Javascipt API does this pretty easily. For this API, the only required request parameter is address. You can also provide a key (API Key) if you would like to track the API requests being made.
+\begin{framed}
+\begin{verbatim}
+install.packages(“httr“)
+library(httr)
+# Google maps Javascript AP1 v3
+sample1 <- GET(“https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA“)
+content(sample1)
+# Or
+add1 <- “1600 Amphitheatre Parkway, Mountain View, CA“
+sample1 <- GET(“https://maps.googleapis.com/maps/api/geocode/json“, query = list(address = add1))
+result1 <- content(sample1)
+result1$results[[1]]$geometry$location$lat
+result1$results[[1]]$geometry$location$lng
+#> result1$results[[1]]$geometry$location$lat
+#[1] 37.42249
+#> result1$results[[1]]$geometry$location$lng
+#[1] -122.0842
+\end{verbatim}
+\end{framed}
+The above code works just like the code for the Utility Rate API, now I have the necessary coordinate information that I was looking for. To makes things even easier, I combined both APIs into a single function which outputs all the information I need into a neat list, see below. The entire script is also available on my Github. Thanks to Hadley Wickham for creating the httr package and providing some useful scripts to start with.
+\begin{framed}
+\begin{verbatim}
+install.packages(“httr“)
+library(httr)
+# Combining both the Google Maps API and the Data.gov API to get utility rates by city – preferred
+google_url <- “https://maps.googleapis.com/maps/api/geocode/json“
+gov_url <- “http://api.data.gov/nrel/utility_rates/v3.json“
+geoCode <- function(address,verbose=FALSE) {
+r <- GET(google_url, query = list(address = address))
+stop_for_status(r)
+result1 <- content(r)
+if (!identical(result1$status, “OK“)) {
+warning(“Please input a valid US address.“, call. = FALSE)
+return(c(NA,NA,NA,NA,NA,NA))
+}
+s <- GET(gov_url, query = list(api_key = “sample_key“, lat = result1$results[[1]]$geometry$location$lat, lon = result1$results[[1]]$geometry$location$lng))
+stop_for_status(s)
+result2 <- content(s)
+if (result2$outputs$utility_name == “no data“) {
+warning(“Please input a valid US address.“, call. = FALSE)
+return(c(NA,NA,NA,NA,NA,NA))
+}
+first <- result1$results[[1]]
+second <- result2$outputs
+list(
+lat = first$geometry$location$lat,
+lon = first$geometry$location$lng,
+type = first$geometry$location_type,
+address = first$formatted_address,
+utility = second$utility_info[[1]]$utility_name,
+residential_rate_kwh = second$residential
+)
+}
+# Test with different addresses
+geoCode(“San Francisco, CA“)
+geoCode(“Beijing, China“)
+#> geoCode(“San Francisco, CA”)
+#$lat
+#[1] 37.77493
+#
+#$lon
+#[1] -122.4194
+#
+#$type
+#[1] “APPROXIMATE”
+#
+#$address
+#[1] “San Francisco, CA, USA”
+#
+#$utility
+#[1] “City & County of San Francisco”
+#
+#$residential_rate_kwh
+#[1] 0.1534
+#
+#> geoCode(“Beijing, China”)
+#[1] NA NA NA NA NA NA
+#Warning message:
+#Please input a valid US address.
+\end{verbatim}
+\end{framed}
+
+
