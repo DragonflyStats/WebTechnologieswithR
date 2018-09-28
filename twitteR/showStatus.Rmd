@@ -1,0 +1,67 @@
+
+RDocumentation 
+R Enterprise Training
+R package
+Leaderboard
+Sign in
+ 
+showStatus
+From twitteR v1.1.9
+by Jeff Gentry
+99.99th
+Percentile
+Functions to return statuses 
+These functions can be used to retrieve specific tweets from the server 
+Keywords
+interface 
+Usage
+showStatus(id, ...)
+lookup_statuses(ids, ...)
+Arguments
+id
+ID of a specific tweet, should be a String, but numbers are accepted
+ids
+A vector of IDs to lookup, should be Strings but numbers are accepted
+...
+Optional arguments to be passed to GET (or POST, see Details)
+Details
+Ideally a POST request would be used for lookup_statuses, however currently there is a problem (issue 78 on github) and GET is used. 
+Value
+
+For showStatus, an object of class statusFor lookup_statuses, a list of status objects. Note that these will not be in the same order as the ids argument and that any id which could not be retrieved will not be present. 
+
+See Also
+status 
+Examples
+ ## Not run: 
+#     showStatus('123')
+#     lookup_statuses(c("123", "234", "456"))
+# ## End(Not run)
+Documentation reproduced from package twitteR, version 1.1.9, License: Artistic-2.0 
+Community examples
+Looks like there are no examples yet.
+Post a new example:
+|||||
+
+## New example
+Use markdown to format your example
+
+R code blocks are runnable and interactive:
+```r
+a <- 2
+print(a)
+```
+
+You can also display normal code blocks
+```
+var a = b
+```
+
+​
+
+Submit your example
+ API documentation 
+R package 
+Rdocumentation.org 
+Created by DataCamp.com
+Learn R at work Try it free 
