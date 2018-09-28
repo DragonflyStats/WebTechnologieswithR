@@ -1,0 +1,71 @@
+
+RDocumentation 
+R Enterprise Training
+R package
+Leaderboard
+Sign in
+ 
+use_oauth_token
+From twitteR v1.1.9
+by Jeff Gentry
+99.99th
+Percentile
+Sets up the OAuth credentials for a twitteR session from an existing Token object 
+This function uses an existing httr OAuth Token in the Twitter session 
+Keywords
+interface
+Usage
+use_oauth_token(twitter_token)
+Arguments
+twitter_token
+An httr Token object
+Details
+This function is an escape hatch for nonstandard OAuth scenarios. Use setup_twitter_token unless it doesn't work for your use case. 
+Value
+
+This is called for its side effect 
+
+See Also
+Token 
+Examples
+ ## Not run: 
+#     library(httr)
+#     library(twitteR)
+#     token <- Token2.0$new(
+#       params = list(as_header=TRUE),
+#       app = oauth_app("fun.with.twitter", "no.key", "no.secret"),
+#       endpoint = oauth_endpoints("twitter"),
+#       credentials = list(access_token = "AAAAAAAAAAAAAAAAAAA%3DAAAAAAAAAAAAAA"),
+#       cache = FALSE
+#     )
+# 
+#     use_oauth_token(token)
+#   ## End(Not run)
+Documentation reproduced from package twitteR, version 1.1.9, License: Artistic-2.0 
+Community examples
+Looks like there are no examples yet.
+Post a new example:
+|||||
+
+## New example
+Use markdown to format your example
+
+R code blocks are runnable and interactive:
+```r
+a <- 2
+print(a)
+```
+
+You can also display normal code blocks
+```
+var a = b
+```
+
+​
+
+Submit your example
+ API documentation 
+R package 
+Rdocumentation.org 
+Created by DataCamp.com
+Learn R at work Try it free 
