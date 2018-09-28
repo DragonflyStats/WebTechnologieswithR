@@ -1,0 +1,66 @@
+
+RDocumentation 
+R Enterprise Training
+R package
+Leaderboard
+Sign in
+ 
+retweets
+From twitteR v1.1.9
+by Jeff Gentry
+99.99th
+Percentile
+Functions to work with retweets 
+These functions can be used to return retweets or users who retweeted a tweet 
+Keywords
+~kwd1 , ~kwd2 
+Usage
+retweets(id, n = 20, ...)
+Arguments
+id
+The ID of the tweet to get retweet information on
+n
+The number of results to return, up to 100
+...
+Further arguments to pass on to httr
+Value
+
+For retweets the n most recent retweets of the original tweet.For retweeters the n most recent users who have retweeted this tweet. 
+
+See Also
+showStatus 
+Examples
+  ## Not run: 
+#      retweets("21947795900469248")
+#      
+#      st = showStatus("21947795900469248")
+#      retweeters(st$getId())
+#   ## End(Not run)
+Documentation reproduced from package twitteR, version 1.1.9, License: Artistic-2.0 
+Community examples
+Looks like there are no examples yet.
+Post a new example:
+|||||
+
+## New example
+Use markdown to format your example
+
+R code blocks are runnable and interactive:
+```r
+a <- 2
+print(a)
+```
+
+You can also display normal code blocks
+```
+var a = b
+```
+
+​
+
+Submit your example
+ API documentation 
+R package 
+Rdocumentation.org 
+Created by DataCamp.com
+Learn R at work Try it free 
