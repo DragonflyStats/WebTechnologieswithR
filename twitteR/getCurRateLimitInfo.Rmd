@@ -1,0 +1,29 @@
+## getCurRateLimitInfo
+
+A function to retrieve current rate limit information 
+Will retrieve the current rate limit information for the authenticated user, displayed as a data.frame displaying specifc information for every Twitter resource 
+
+### Keywords
+interface 
+
+### Usage
+getCurRateLimitInfo(resources=resource_families, ...)
+Arguments
+resources
+A character vector of specific resources to get information for
+...
+Optional arguments to pass to cURL
+
+### Details
+By default, all known resource families will be polled. These families are contained in the object resource_families. If you would like to filter this down you may tweak the resources argument.
+
+The full list of allowed values in resources is as follows: lists, application, friendships, blocks, geo, users, followers, statuses, help, friends, direct_messages, account, favorites, saved_searches, search, trends. 
+
+Value
+
+A four column data.frame with columns resource, limit, remaining and reset. These detail the specific resource name, the rate limit for that block, the number of calls remaining and the time the rate limit will be reset in UTC time. 
+
+Examples
+  ## Not run: 
+#     zz <- getCurRateLimitInfo(c("lists", "users"))
+#   ## End(Not run)
