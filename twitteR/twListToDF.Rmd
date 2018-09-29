@@ -1,62 +1,29 @@
 
-RDocumentation 
-R Enterprise Training
-R package
-Leaderboard
-Sign in
  
-twListToDF
-From twitteR v1.1.9
-by Jeff Gentry
-99.99th
-Percentile
-A function to convert twitteR lists to data.frames 
+twListToDF:A function to convert twitteR lists to data.frames 
 This function will take a list of objects from a single twitteR class and return a data.frame version of the members 
 Keywords
 interface 
 Usage
 twListToDF(twList)
-Arguments
+
+### Arguments
 twList
 A list of objects of a single twitteR class, restrictions are listed in details
-Details
+
+### Details
 The classes supported by this function are status, user, and directMessage. 
-Value
+
+#### Value
 
 A data.frame with rows corresponding to the objects in the list and columns being the fields of the class 
 
 See Also
 status, user, directMessage 
-Examples
+
+#### Examples
   ## Not run: 
 #     zz <- searchTwitter("#rstats")
 #     twListToDF(zz)
 #   ## End(Not run)
-Documentation reproduced from package twitteR, version 1.1.9, License: Artistic-2.0 
-Community examples
-Looks like there are no examples yet.
-Post a new example:
-|||||
 
-## New example
-Use markdown to format your example
-
-R code blocks are runnable and interactive:
-```r
-a <- 2
-print(a)
-```
-
-You can also display normal code blocks
-```
-var a = b
-```
-
-​
-
-Submit your example
- API documentation 
-R package 
-Rdocumentation.org 
-Created by DataCamp.com
-Learn R at work Try it free 
