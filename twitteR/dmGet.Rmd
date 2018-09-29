@@ -12,27 +12,21 @@ dmSend(text, user, ...)
 </ccde></pre>
 
 #### Arguments
-text
-The text of a message to send
-user
-The user to send a message to, either character or an user object.
-dm
-The message to delete, an object of class directMessage
-n
-The maximum number of direct messages to return 
-sinceID
-If not NULL, an ID representing the earliest boundary
-maxID
-If not NULL, an ID representing the newest ID you wish to retrieve
-...
-Further arguments to pass along the communication chain
+* text The text of a message to send
+* user The user to send a message to, either character or an user object.
+* dm The message to delete, an object of class directMessage
+* n The maximum number of direct messages to return 
+* sinceID If not NULL, an ID representing the earliest boundary
+* maxID If not NULL, an ID representing the newest ID you wish to retrieve
+* ...Further arguments to pass along the communication chain
 
 #### Value
-
-These functions will not work without OAuth authenticationThe dmGet and dmSent functions will return a list of directMessage objects. The former will retrieve DMs sent to the user while the latter retrieves messages sent from the user.The dmDestroy function takes a directMessage object (perhaps from either dmGet or dmSent) and will delete it from the Twitter server.The dmSend function will send a message to another Twitter user. 
+* These functions will not work without OAuth authenticationThe dmGet and dmSent functions will return a list of directMessage objects. The former will retrieve DMs sent to the user while the latter retrieves messages sent from the user.
+* The dmDestroy function takes a directMessage object (perhaps from either dmGet or dmSent) and will delete it from the Twitter server.The dmSend function will send a message to another Twitter user. 
 
 See Also
 directMessage, registerTwitterOAuth
+<pre><code>
 Examples
   ## Not run: 
 #            dms <- dmGet()
@@ -43,3 +37,4 @@ Examples
 #            ## send a DM
 #            dmSend('Testing out twitteR!', 'twitter')
 #    ## End(Not run)
+</code></pre>
