@@ -1,25 +1,22 @@
-
-### friendships
-
-A function to detail relations between yourself & other users 
+## friendships: A function to detail relations between yourself & other users 
 This function will accept a list of other Twitter users and will detail if they follow you and/or you follow them. 
 
 ### Keywords
 interface 
 
 ### Usage
+<pre><code>
 friendships(screen_names = character(), user_ids = character(), ...)
+</code></pre>
 
 ### Arguments
-screen_names
-A vector of one or more Twitter screen names 
-user_ids
-A vector of one or more Twitter user id values 
-...
-Any other arguments to pass to RCurl 
+* screen_names A vector of one or more Twitter screen names 
+* user_ids A vector of one or more Twitter user id values 
+* ... Any other arguments to pass to RCurl 
 
 ### Details
-The combined number of screen names and user ids may not exceed 100. Any non-existent users will be dropped from the output 
+* The combined number of screen names and user ids may not exceed 100.
+* Any non-existent users will be dropped from the output 
 
 ### Value
 * A data.frame, one row for each user requested with columns name, screen_name, id, following and followed_by. #
@@ -29,7 +26,8 @@ The combined number of screen names and user ids may not exceed 100. Any non-exi
 https://dev.twitter.com/docs/api/1.1/get/friendships/lookup 
 See Also
 registerTwitterOAuth 
-Examples
-  ## Not run: 
+
+### Examples
+<pre><code>
 #     friendships()
-#   ## End(Not run)
+</code></pre>
