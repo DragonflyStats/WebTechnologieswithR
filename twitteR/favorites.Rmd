@@ -1,69 +1,40 @@
 
-RDocumentation 
-R Enterprise Training
-R package
-Leaderboard
-Sign in
- 
-favorites
-From twitteR v1.1.9
-by Jeff Gentry
-99.99th
-Percentile
+
+## favorites
+
 A function to get favorite tweets 
 Returns the n most recently favorited tweets from the specified user. 
 Keywords
 interface 
-Usage
+
+### Usage
+<pre><code>
 favorites(user, n = 20, max_id = NULL, since_id = NULL, ...)
-Arguments
-user
+</code></pre>
+
+### Arguments
+* user
 The Twitter user to detail, can be character or an user object.
-n
+* n
 Number of tweets to retrieve, up to a maximum of 200
-max_id
+* max_id
 Maximum ID to search for
-since_id
+* since_id
 Minimum ID to search for
-...
+* ...
 Optional arguments to pass along to RCurl
-Value
+
+### Value
 
 A list of link{status} objects corresponding to the n most recent tweets 
 
-References
+### References
 https://dev.twitter.com/rest/reference/get/favorites/list 
-See Also
-getUser, status 
-Examples
+
+
+### Examples
+<pre><code>
   ## Not run: 
 #       fav = favorites("barackobama", n=100)
 #   ## End(Not run)
-Documentation reproduced from package twitteR, version 1.1.9, License: Artistic-2.0 
-Community examples
-Looks like there are no examples yet.
-Post a new example:
-|||||
-
-## New example
-Use markdown to format your example
-
-R code blocks are runnable and interactive:
-```r
-a <- 2
-print(a)
-```
-
-You can also display normal code blocks
-```
-var a = b
-```
-
-​
-
-Submit your example
- API documentation 
-R package 
-Rdocumentation.org 
-Created by DataCamp.com
-Learn R at work Try it free 
+</code></pre>
