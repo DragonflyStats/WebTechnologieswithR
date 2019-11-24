@@ -1,0 +1,193 @@
+%----------------------------------------------------------%
+\begin{frame}
+rvest
+
+\[\mbox{rvest: easy web scraping with R}\]
+
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+
+rvest is new package that makes it easy to scrape (or harvest) data from html web pages, inspired by libraries like beautiful soup. It is designed to work with magrittr so that you can express complex operations as elegant pipelines composed of simple, easily understood pieces. Install it with:
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+\begin{framed}
+\begin{verbatim}
+install.packages("rvest")
+rvest in action
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+To see rvest in action, imagine we’d like to scrape some information about The Lego Movie from IMDB. We start by downloading and parsing the file with html():
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+\begin{framed}
+\begin{verbatim}
+
+library(rvest)
+lego_movie <- html("http://www.imdb.com/title/tt1490017/")
+\end{verbatim}
+\end{framed}
+To extract the rating, we start with selectorgadget to figure out which css selector matches the data we want: strong span. (If you haven’t heard of selectorgadget, make sure to read vignette("selectorgadget") – it’s the easiest way to determine which selector extracts the data that you’re interested in.) We use html_node() to find the first node that matches that selector, extract its contents with html_text(), and convert it to numeric with as.numeric():
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+\begin{framed}
+\begin{verbatim}
+
+lego_movie %>% 
+  html_node("strong span") %>%
+  html_text() %>%
+  as.numeric()
+#> [1] 7.9
+\end{verbatim}
+\end{framed}
+
+\end{frame}
+%----------------------------------------------------------%
+\begin{frame}
+We use a similar process to extract the cast, using html_nodes() to find all nodes that match the selector:
+\end{frame}
+
+%----------------------------------------------------------%
+\begin{frame}
+\begin{framed}
+\begin{verbatim}
+
+lego_movie %>%
+  html_nodes("#titleCast .itemprop span") %>%
+  html_text()
+#>  [1] "Will Arnett"     "Elizabeth Banks" "Craig Berry"    
+#>  [4] "Alison Brie"     "David Burrows"   "Anthony Daniels"
+#>  [7] "Charlie Day"     "Amanda Farinos"  "Keith Ferguson" 
+#> [10] "Will Ferrell"    "Will Forte"      "Dave Franco"    
+#> [13] "Morgan Freeman"  "Todd Hansen"     "Jonah Hill"
+\end{verbatim}
+\end{framed}
+The titles and authors of recent message board postings are stored in a the third table on the page. We can use html_node() and [[ to find it, then coerce it to a data frame with html_table():
+\end{frame}
+
+%----------------------------------------------------------%
+\begin{frame}
+\begin{framed}
+\begin{verbatim}
+lego_movie %>%
+  html_nodes("table") %>%
+  .[[3]] %>%
+  html_table()
+#>                                              X 1            NA
+#> 1 this movie is very very deep and philosophical   mrdoctor524
+#> 2 This got an 8.0 and Wizard of Oz got an 8.1...  marr-justinm
+#> 3                         Discouraging Building?       Laestig
+#> 4                              LEGO - the plural      neil-476
+#> 5                                 Academy Awards   browncoatjw
+#> 6                    what was the funniest part? actionjacksin
+Other important functions
+If you prefer, you can use xpath selectors instead of css: html_nodes(doc, xpath = "//table//td")).
+Extract the tag names with html_tag(), text with html_text(), a single attribute with html_attr() or all attributes with html_attrs().
+
+Detect and repair text encoding problems with guess_encoding() and repair_encoding().
+
+Navigate around a website as if you’re in a browser with html_session(), jump_to(), follow_link(), back(), and forward(). Extract, modify and submit forms with html_form(), set_values() and submit_form(). (This is still a work in progress, so I’d love your feedback.)
+
+To see these functions in action, check out package demos with demo(package = "rvest").
+
+SHARE THIS:
+
+
+https://github.com/m-a-j/combine.git
+
+
+Thursday, January 8, 2015
+
+Using rvest to Scrape an HTML Table
+I recently had the need to scrape a table from wikipedia. Normally, I'd probably cut and paste it into a spreadsheet, but I figured I'd give Hadley's rvest package a go.
+
+The first thing I needed to do was browse to the desired page and locate the table. In this case, it's a table of US state populations from wikipedia. Rvest needs to know what table I want, so (using the Chrome web browser), I right clicked and chose “inspect element”. This splits the page horizonally. As you hover over page elements in the html on the bottom, sections of the web page are highlighted on the top.
+
+Hovering over the blue highlighted line will cause the table on top to be colored blue. This is the element we want. I clicked on this line, and choose “copy XPath”, then we can move to R.
+
+First step is to install rvest from CRAN.
+
+install.packages("rvest")
+Then we it's pretty simple to pull the table into a dataframe. Paste that XPath into the appropriate spot below.
+
+library("rvest")
+url <- "http://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population"
+population <- url %>%
+  html() %>%
+  html_nodes(xpath='//*[@id="mw-content-text"]/table[1]') %>%
+  html_table()
+population <- population[[1]]
+
+head(population)
+##   Rank in\nthe Fifty\nStates,\n2014
+## 1                           !000001
+## 2                           !000002
+## 3                           !000003
+## 4                           !000004
+## 5                           !000005
+## 6                           !000006
+##   Rank in all\nstates\n& terri-\ntories,\n2010 State or territory
+## 1                                      !000001         California
+## 2                                      !000002              Texas
+## 3                                      !000004            Florida
+## 4                                      !000003           New York
+## 5                                      !000005           Illinois
+## 6                                      !000006       Pennsylvania
+##   Population estimate for\nJuly 1, 2014 Census population,\nApril 1, 2010
+## 1                            38,802,500                        37,253,956
+## 2                            26,956,958                        25,145,561
+## 3                            19,893,297                        18,801,310
+## 4                            19,746,227                        19,378,102
+## 5                            12,880,580                        12,830,632
+## 6                            12,787,209                        12,702,379
+##   Census population,\nApril 1, 2000 Seats inU.S. House,\n2013–2023
+## 1                        33,871,648                        !000053
+## 2                        20,851,820                        !000036
+## 3                        15,982,378                        !000027
+## 4                        18,976,457                        !000027
+## 5                        12,419,293                        !000018
+## 6                        12,281,054                        !000018
+##   Presi-\ndential\nElectors\n2012–\n2020
+## 1                                !000055
+## 2                                !000038
+## 3                                !000029
+## 4                                !000029
+## 5                                !000020
+## 6                                !000020
+##   2014 Estimated pop.\nper\nHouse seat
+## 1                              732,123
+## 2                              748,804
+## 3                              736,789
+## 4                              731,342
+## 5                              715,588
+## 6                              710,401
+##   2010 Census pop.\nper\nHouse\nseat[4] 2000 Census pop.\nper\nHouse\nseat
+## 1                               702,905                            639,088
+## 2                               698,487                            651,619
+## 3                               696,345                            639,295
+## 4                               717,707                            654,361
+## 5                               712,813                            653,647
+## 6                               705,688                            646,371
+##   Percent\nof total\nU.S. pop.,\n2014[5]
+## 1                                 12.17%
+## 2                                  8.45%
+## 3                                  6.24%
+## 4                                  6.19%
+## 5                                  4.04%
+## 6                                  4.01%
+There's some work to be done on column names, but this is a pretty pain free way to scrape a table. As usual, a big shout out to Hadley Wickham for making this so easy for us.
+
+Posted by Cory Nissen at 9:36 AM 
+Email This
+BlogThis!
+Share to Twitter
+Share to Facebook
+Share to Pinterest
+
+Labels: Hadley, R, rvest
+5 comments:
+
