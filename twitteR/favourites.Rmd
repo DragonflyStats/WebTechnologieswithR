@@ -1,0 +1,31 @@
+## favorites A function to get favorite tweets
+
+#### Description
+Returns the n most recently favorited tweets from the specified user.
+
+#### Usage
+favorites(user, n = 20, max_id = NULL, since_id = NULL, ...)
+
+#### Arguments
+user The Twitter user to detail, can be character or an user object.
+n Number of tweets to retrieve, up to a maximum of 200
+max_id Maximum ID to search for
+since_id Minimum ID to search for
+... Optional arguments to pass along to RCurl
+
+Value
+A list of link{status} objects corresponding to the n most recent tweets
+
+
+### Examples
+
+## Not run:
+fav = favorites("barackobama", n=100)
+## End(Not run)
+
+### Author(s)
+Jeff Gentry
+References
+https://dev.twitter.com/rest/reference/get/favorites/list
+See Also
+getUser, status

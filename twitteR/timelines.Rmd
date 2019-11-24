@@ -1,0 +1,29 @@
+timelines Functions to view Twitter timelines
+#### Description
+These functions will allow you to retrieve various timelines within the Twitter universe
+#### Usage <pre><code>
+userTimeline(user, n=20, maxID=NULL, sinceID=NULL, includeRts=FALSE,
+excludeReplies=FALSE, ...)
+homeTimeline(n=25, maxID=NULL, sinceID=NULL, ...)
+mentions(n=25, maxID=NULL, sinceID=NULL, ...)
+retweetsOfMe(n=25, maxID=NULL, sinceID=NULL, ...)
+</code></pre> #### Argument
+user The Twitter user to detail, can be character or an user object.
+n Number of tweets to retrieve, up to a maximum of 3200
+maxID Maximum ID to search for
+sinceID Minimum (not inclusive) ID to search for
+includeRts If FALSE any native retweets (not old style RT retweets) will be stripped from
+the results
+excludeReplies if TRUE any replies are stripped from the results
+... Optional </code></pre> #### Argument to be passed to GET
+Value
+A list of status objects
+### Author(s)
+Jeff Gentry
+twListToDF 25
+See Also
+getUser, status
+### Examples
+## Not run:
+ut <- userTimeline('barackobama', n=100)
+## End(Not run)

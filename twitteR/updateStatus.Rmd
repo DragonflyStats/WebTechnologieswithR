@@ -1,0 +1,46 @@
+
+updateStatus Functions to manipulate Twitter status
+#### Description
+These functions can be used to set or delete a user's Twitter status
+#### Usage <pre><code>
+tweet(text, ...)
+updateStatus(text, lat=NULL, long=NULL, placeID=NULL,
+displayCoords=NULL, inReplyTo=NULL, mediaPath=NULL,
+bypassCharLimit=FALSE, ...)
+deleteStatus(status, ...)
+</code></pre> #### Argument
+text The text to use for a new status
+status An object of class status
+lat If not NULL, the latitude the status refers to. Ignored if no long parameter is
+provideded
+long If not NULL, the longitude the status refers to. Ignored if no lat parameter is
+provideded
+placeID If not NULL, provideds a place in the world. See Twitter documentation for
+### Details
+displayCoords Whether or not to put a pin on the exact coordinates a tweet has been sent from,
+true or false if not NULL
+inReplyTo If not NULL, denotes the status this is in reply to. Either an object of class status
+or an ID value
+mediaPath If not NULL, file path to a supported media format (PNG, JPG and GIF) to be
+included in the status update
+bypassCharLimit
+If TRUE will not enforce the incoming tweet is less than 140 characters. This can
+be useful when dealing with autoshortened links
+... Optional </code></pre> #### Argument to be passed to GET
+### Details
+These messages will only operate properly if the user is authenticated via OAuth
+The tweet and updateStatus functions are the same.
+To delete a status message, pass in an object of class status, such as from the return value of
+updateStatus.
+user-class 27
+Value
+The updateStatus function will return an object of class status.
+The deleteStatus returns TRUE on success and an error if failure occurs.
+### Author(s)
+Jeff Gentry
+### Examples
+## Not run:
+ns <- updateStatus('this is my new status message')
+## ooops, we want to remove it!
+deleteStatus(ns)
+## End(Not run)

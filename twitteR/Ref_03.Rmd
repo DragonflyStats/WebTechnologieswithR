@@ -1,0 +1,115 @@
+
+getUser Functions to manage Twitter users
+Description
+These functions allow you interact with information about a Twitter user - retrieving their base
+information, list of friends, list of followers, and an up to date timeline.
+### Usage
+getUser(user, ...)
+lookupUsers(users, includeNA=FALSE, ...)
+Arguments
+user The Twitter user to detail, can be character or an user object.
+users A vector of either user IDs or screen names or a mix of both
+includeNA If TRUE will leave an NA element in the return list for users that don’t exist
+... Optional arguments to be passed to GET
+### Details
+These functions will only return fully formed objects if the authenticated user is allowed to see the
+requested user. If that person has a private account and has not allowed you to see them, you will
+not be able to extract that information.
+The lookupUsers function should be used in cases where there are multiple lookups going to take
+place, to reduce the API call load. This function requires OAuth authentication.
+10 get_latest_tweet_id
+Value
+The getUser function returns an object of class user.
+The lookupUsers function will return a list of user objects, sorted in the order of the users argument,
+with names being the particular element of users that it matches to. If the includeNA
+argument is set to FALSE (default), any non-existing users will be dropped from the list.
+### Author(s)
+Jeff Gentry
+See Also
+mentions
+### Examples
+## Not run:
+tuser <- getUser('geoffjentry')
+users <- lookupUsers(c('geoffjentry', 'whitehouse'))
+## End(Not run)
+get_latest_tweet_id A function to retrieve the most recent tweet ID from a database
+Description
+Given a registered database backend which contains a table of tweets, will return the ID of the most
+recent tweet stored in that table
+### Usage
+get_latest_tweet_id(table_name = "tweets")
+Arguments
+table_name The name of the table in the database containing tweets
+### Details
+A wrapper around a select max(id) on the table_name
+Value
+The ID of the most recent tweet in the table, or a stop if the table is empty
+import_statuses 11
+### Author(s)
+Jeff Gentry
+See Also
+register_db_backend
+### Examples
+## Not run:
+register_sqlite_backend("sqlit_file")
+get_latest_tweet_id("rstats_tweets")
+## End(Not run)
+import_statuses Functions to import twitteR objects from various sources
+Description
+Functions designed to import data into twitteR objects from a variety of data sources. Currently
+only JSON is supported, and this entire branch of functionality should be considered experimental
+& under development.
+### Usage
+import_statuses(raw_data, conversion_func = json_to_statuses)
+import_trends(raw_data, conversion_func = json_to_trends)
+import_users(raw_data, conversion_func = json_to_users)
+import_obj(raw_data, conversion_func, ...)
+json_to_users(raw_data)
+json_to_statuses(raw_data)
+json_to_trends(raw_data)
+Arguments
+raw_data Data to be be parsed via the prescribed function
+conversion_func
+The function to convert raw_data into the specified twitteR object
+... Arguments to pass along to conversion_func
+Value
+A list of twitteR objects of the appropriate type, e.g. status, user, etc
+### Author(s)
+Jeff Gentry
+12 load_tweets_db
+See Also
+status, user
+### Examples
+## Not run:
+status_list = import_statuses(list_of_status_json)
+## End(Not run)
+load_tweets_db Functions to persist/load twitteR data to a database
+Description
+These functions allow a user to store twitteR based data to a database backend as well as retrieving
+previously stored data
+### Usage
+store_tweets_db(tweets, table_name="tweets")
+store_users_db(users, table_name="users")
+load_users_db(as.data.frame = FALSE, table_name = "users")
+load_tweets_db(as.data.frame = FALSE, table_name = "tweets")
+Arguments
+tweets A list of status objects to persist to the database
+users A list of user objects to persist to the database
+as.data.frame if TRUE, data will be returned as a data.frame instead of twitteR objects
+table_name The database table to use for storing and loading
+Value
+store_tweets_db and store_users_db return TRUE of FALSE based on their success or not. The
+loading functions return either a data.frame of the data (representing the underlying table) or a list
+of the appropriate twitteR objects.
+### Author(s)
+Jeff Gentry
+See Also
+register_db_backend, register_sqlite_backend, register_mysql_backend
+registerTwitterOAuth 13
+### Examples
+## Not run:
+register_sqlite_backend("/path/to/sqlite/file")
+tweets = searchTwitter("#scala")
+store_tweets_db(tweets)
+from_db = load_tweets_db()
+## End(Not run)

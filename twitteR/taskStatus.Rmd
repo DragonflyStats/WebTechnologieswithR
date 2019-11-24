@@ -1,0 +1,24 @@
+taskStatus A function to send a Twitter DM after completion of a task
+#### Description
+This function will run an R expression and send a direct message to a specified user on success or
+failure.
+#### Usage <pre><code>
+taskStatus(expr, to, msg="")
+</code></pre> #### Argument
+expr An R expression that will be run
+to The user to send a message to, either character or an user object.
+msg An extra message to append to the standard DM
+### Details
+This function will run expr, and send a Direct Message (DM) upon completion which will report
+the expression's success or failure.
+Value
+Either the value of the expression or an object of class try-error.
+24 timelines
+### Author(s)
+Jeff Gentry
+See Also
+dmSend
+### Examples
+## Not run:
+taskStatus(z<-5, "username", session=sess)
+## End(Not run)

@@ -1,0 +1,34 @@
+decode_short_url A function to decode shortened URLs
+Description
+Will expand a URL that has been processed by a link shortener (e.g. bit.ly). Provided as a convenience
+function to users who may which to perform this operation.
+
+### Usage
+
+<pre><code>
+decode_short_url(url, ...)
+</code></pre>
+  
+#### Arguments
+* url A character string, the URL to decode
+* ... Optional arguments to pass along to RCurl
+
+### Details
+
+Uses the longapi.org API
+
+Value
+A character string containing either the original URL (if not shortened) or the full URL (if shortened)
+
+### Examples
+```{r}`
+## Not run:
+decode_short_url("http://bit.ly/23226se656")
+## End(Not run)
+```
+
+### Author(s)
+Neil Jang
+directMessage-class 3
+References
+longapi.org

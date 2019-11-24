@@ -1,0 +1,32 @@
+
+use_oauth_token 29
+use_oauth_token Sets up the OAuth credentials for a twitteR session from an existing
+Token object
+#### Description
+This function uses an existing httr OAuth Token in the Twitter session
+#### Usage <pre><code>
+use_oauth_token(twitter_token)
+</code></pre> #### Argument
+twitter_token An httr Token object
+### Details
+This function is an escape hatch for nonstandard OAuth scenarios. Use setup_twitter_token unless
+it doesn't work for your use case.
+Value
+This is called for its side effect
+### Author(s)
+Anand Patil
+See Also
+Token
+### Examples
+## Not run:
+library(httr)
+library(twitteR)
+token <- Token2.0$new(
+params = list(as_header=TRUE),
+app = oauth_app("fun.with.twitter", "no.key", "no.secret"),
+endpoint = oauth_endpoints("twitter"),
+credentials = list(access_token = "AAAAAAAAAAAAAAAAAAA%3DAAAAAAAAAAAAAA"),
+cache = FALSE
+)
+use_oauth_token(token)
+## End(Not run)

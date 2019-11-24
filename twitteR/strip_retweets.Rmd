@@ -1,0 +1,30 @@
+
+strip_retweets A function to remove retweets
+#### Description
+Given a list of status objects, will remove retweets from the list to provide a "pure" set of tweets.
+#### Usage <pre><code>
+strip_retweets(tweets, strip_manual = TRUE, strip_mt = TRUE)
+</code></pre> #### Argument
+tweets A list of status objects
+strip_manual If TRUE will remove old style manual retweets
+strip_mt If TRUE will remove modified tweets (MT)
+### Details
+Newer style retweets are summarily removed regardless of options.
+Older style retweets (aka manual retweets) are tweets of the form RT @user blah blah. If
+strip_manual is TRUE, tweets containing the RT string will have everything including and to the
+right of the RT will be removed. Everything to the left of the RT will remain, as this should be
+original content.
+If strip_mt is TRUE, tweets will be stripped in the same manner as strip_manual but using the
+string MT
+taskStatus 23
+Value
+A list of status objects with retweeted content removed
+### Author(s)
+Jeff Gentry
+See Also
+status
+### Examples
+## Not run:
+tweets = searchTwitter("stuff")
+no_retweets = strip_retweets(tweets)
+## End(Not run)

@@ -1,0 +1,44 @@
+search_twitter_and_store
+A function to store searched tweets to a database
+#### Description
+A convenience function designed to wrap the process of running a twitter search and pushing the
+results to a database. If this is called more than once, the search will start with the most recent tweet
+already stored.
+
+#### Usage 
+
+<pre><code>
+search_twitter_and_store(searchString, table_name = "tweets", lang = NULL,
+locale = NULL, geocode = NULL, retryOnRateLimit = 120, ...)
+</code></pre> 
+
+#### Argument
+searchString The search string to use, e.g. as one would in searchTwitter
+table_name The database to store the tweets to, see register_db_backend
+lang If not NULL, restricts tweets to the given language, given by an ISO 639-1 code
+locale If not NULL, will set the locale for the search. As of 03/06/11 only ja is effective,
+as per the Twitter API
+geocode If not NULL, returns tweets by users located within a given radius of the given
+latitude/longitude. See ### Details in link{searchTwitter}
+retryOnRateLimit
+If non-zero the search command will block retry up to X times if the rate limit
+is experienced. This might lead to a much longer run time but the task will
+eventually complete if the retry count is high enough
+... Optional argument to be passed to GET
+### Details
+All argument but table_name are being passed directly to searchTwitter.
+This function will check if table_name exists, and if so will also use a sinceID of the most recent
+ID in the table. The search is performed, the returned tweets are stored in the database via
+store_tweets_db.
+Value
+The number of tweets stored
+Note
+Jeff Gentry
+setup_twitter_oauth 19
+See Also
+register_db_backend, searchTwitter, store_tweets_db
+### Examples
+## Not run:
+register_sqlite_backend("sqlit_file")
+n = search_twitter_and_store("#rstats", "rstats_tweets")
+## End(Not run)

@@ -1,0 +1,30 @@
+
+setup_twitter_oauth Sets up the OAuth credentials for a twitteR session
+#### Description
+This function wraps the OAuth authentication handshake functions from the httr package for a
+twitteR session
+#### Usage <pre><code>
+setup_twitter_oauth(consumer_key, consumer_secret, access_token=NULL, access_secret=NULL)
+</code></pre> #### Argument
+consumer_key The consumer key supplied by Twitter
+consumer_secret
+The consumer secret supplied by Twitter
+access_token The access token supplied by Twitter
+access_secret The access secret supplied by Twitter
+### Details
+The httr package can cache authentication. See Token for ### Details
+If both access_token and access_secret are set (i.e. not NULL), these will be supplied directly to
+the OAuth authentication instead of the browser based authentication dance one would normally experience.
+This requires you to already know the access tokens for your Twitter app. The usefuleness
+of this feature is primarily in a headless environment where a web browser is not available.
+Value
+This is called for its side effect
+### Author(s)
+Jeff Gentry
+20 showStatus
+See Also
+Token, GET, POST
+### Examples
+## Not run:
+setup_twitter_oauth("CONSUMER_KEY", "CONSUMER_SECRET")
+## End(Not run)

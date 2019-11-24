@@ -1,0 +1,65 @@
+searchTwitter Search twitter
+Description
+This function will issue a search of Twitter based on a supplied search string.
+### Usage
+searchTwitter(searchString, n=25, lang=NULL, since=NULL, until=NULL,
+locale=NULL, geocode=NULL, sinceID=NULL, maxID=NULL,
+resultType=NULL, retryOnRateLimit=120, ...)
+Rtweets(n=25, lang=NULL, since=NULL, ...)
+Arguments
+searchString Search query to issue to twitter. Use "+" to separate query terms.
+n The maximum number of tweets to return
+lang If not NULL, restricts tweets to the given language, given by an ISO 639-1 code
+since If not NULL, restricts tweets to those since the given date. Date is to be formatted
+as YYYY-MM-DD
+until If not NULL, restricts tweets to those up until the given date. Date is to be formatted
+as YYYY-MM-DD
+locale If not NULL, will set the locale for the search. As of 03/06/11 only ja is effective,
+as per the Twitter API
+geocode If not NULL, returns tweets by users located within a given radius of the given
+latitude/longitude. See ### Details below for more information
+sinceID If not NULL, returns tweets with IDs greater (ie newer) than the specified ID
+maxID If not NULL, returns tweets with IDs smaller (ie older) than the specified ID
+resultType If not NULL, returns filtered tweets as per value. See ### Details for allowed values.
+retryOnRateLimit
+If non-zero the search command will block retry up to X times if the rate limit
+is experienced. This might lead to a much longer run time but the task will
+eventually complete if the retry count is high enough
+... Optional arguments to be passed to GET
+### Details
+These commands will return any authorized tweets which match the search criteria. Note that
+there are pagination restrictions as well as other limits on what can be searched, so it is always
+possible to not retrieve as many tweets as was requested with the n argument. Authorized tweets
+are public tweets as well as those protected tweets that are available to the user after authenticating
+via registerTwitterOAuth.
+searchTwitter 17
+The searchString is always required. Terms can contain spaces, and multiple terms should be
+separated with "+".
+For the geocode argument, the values are given in the format latitude,longitude,radius, where
+the radius can have either mi (miles) or km (kilometers) as a unit. For example geocode='37.781157,-122.39720,1mi'.
+For the sinceID argument, if the requested ID value is older than the oldest available tweets, the
+API will return tweets starting from the oldest ID available.
+For the maxID argument, tweets upto this ID value will be returned starting from the oldest ID
+available. Useful for paging.
+The resultType argument specifies the type of search results received in API response. Default is
+mixed. Allowed values are mixed (includes popular + real time results), recent (returns the most
+recent results) and popular (returns only the most popular results).
+The Rtweets function is a wrapper around searchTwitter which hardcodes in a search for #rstats.
+Value
+A list of status objects
+### Author(s)
+Jeff Gentry
+See Also
+status
+### Examples
+## Not run:
+searchTwitter("#beer", n=100)
+Rtweets(n=37)
+## Search between two dates
+searchTwitter('charlie sheen', since='2011-03-01', until='2011-03-02')
+## geocoded results
+searchTwitter('patriots', geocode='42.375,-71.1061111,10mi')
+## using resultType
+searchTwitter('world cup+brazil', resultType="popular", n=15)
+searchTwitter('from:hadleywickham', resultType="recent", n=10)
+## End(Not run)

@@ -1,0 +1,28 @@
+registerTwitterOAuth Register OAuth credentials to twitter R session
+#### Description
+These functions are deprecated
+#### Usage 
+
+<pre><code>
+getTwitterOAuth(consumer_key, consumer_secret)
+registerTwitterOAuth(oauth)
+</code></pre> 
+
+#### Argument
+
+consumer_key The consumer key supplied by Twitter
+consumer_secret
+The consumer secret supplied by Twitter
+oauth An object of class OAuth
+### Details
+These functions are deprecated, see setup_twitter_oauth
+Value
+TRUE on success, otherwise an error will be thrown
+### Author(s)
+Jeff Gentry
+See Also
+setup_twitter_oauth
+### Examples
+## Not run:
+fakeExample = 5
+## End(Not run)

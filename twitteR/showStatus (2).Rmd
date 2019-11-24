@@ -1,0 +1,27 @@
+showStatus Functions to return statuses
+#### Description
+These functions can be used to retrieve specific tweets from the server
+#### Usage <pre><code>
+showStatus(id, ...)
+lookup_statuses(ids, ...)
+</code></pre> #### Argument
+id ID of a specific tweet, should be a String, but numbers are accepted
+ids A vector of IDs to lookup, should be Strings but numbers are accepted
+... Optional </code></pre> #### Argument to be passed to GET (or POST, see ### Details)
+### Details
+Ideally a POST request would be used for lookup_statuses, however currently there is a problem
+(issue 78 on github) and GET is used.
+Value
+For showStatus, an object of class status
+For lookup_statuses, a list of status objects. Note that these will not be in the same order as the
+ids argument and that any id which could not be retrieved will not be present.
+### Author(s)
+Jeff Gentry
+See Also
+status
+status-class 21
+### Examples
+## Not run:
+showStatus('123')
+lookup_statuses(c("123", "234", "456"))
+## End(Not run)

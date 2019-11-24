@@ -1,0 +1,268 @@
+Package âtwitteR'
+July 29, 2015
+Title R Based Twitter Client
+#### #### DescriptionProvides an interface to the Twitter web API.
+Version 1.1.9
+Author Jeff Gentry <geoffjentry@gmail.com>
+Maintainer Jeff Gentry <geoffjentry@gmail.com>
+Depends R (>= 2.12.0)
+Imports methods, bit64, rjson, DBI (>= 0.3.1), httr (>= 1.0.0)
+Suggests RSQLite, RMySQL
+License Artistic-2.0
+LazyData yes
+URL http://lists.hexdump.org/listinfo.cgi/twitter-users-hexdump.org
+Collate allGenerics.R base.R account.R statuses.R users.R trends.R
+s4methods.R convert.R dm.R oauth.R comm.R followers.R search.R
+db.R df_columns.R db_connections.R db_utils.R db_search.R
+toys.R utils.R zzz.R
+NeedsCompilation no
+Repository CRAN
+Date/Publication 2015-07-29 00:27:59
+R topics documented:
+decode_short_url...... . . . . 3
+dmGet..... . . . . 4
+favorites..... . . . 5
+friendships..... . . 6
+getCurRateLimitInfo.... . . . . 7
+getTrends..... . . 8
+getUser..... . . . 9
+get_latest_tweet_id.... . . . . . 10
+import_statuses....11
+1
+2 decode_short_url
+load_tweets_db....12
+registerTwitterOAuth.... . . . . 13
+register_db_backend.... . . . . 14
+retweets..... . . . 15
+searchTwitter..... 16
+search_twitter_and_store.... . . 18
+setup_twitter_oauth.... . . . . . 19
+showStatus..... . 20
+status-class..... . 21
+strip_retweets..... 22
+taskStatus..... . . 23
+timelines..... . . . 24
+twListToDF..... . 25
+updateStatus..... . 26
+user-class..... . . 27
+use_oauth_token.... . . . . . . 29
+Index 30
+
+
+
+16 searchTwitter
+
+18 search_twitter_and_store
+
+
+
+
+Index
+Topic \textasciitildekwd1
+retweets, 15
+Topic \textasciitildekwd2
+retweets, 15
+Topic classes
+directMessage-class, 3
+status-class, 21
+user-class, 27
+Topic interface
+dmGet, 4
+favorites, 5
+friendships, 6
+getCurRateLimitInfo, 7
+getTrends, 8
+getUser, 9
+import_statuses, 11
+registerTwitterOAuth, 13
+searchTwitter, 16
+setup_twitter_oauth, 19
+showStatus, 20
+taskStatus, 23
+timelines, 24
+twListToDF, 25
+updateStatus, 26
+use_oauth_token, 29
+Topic utilities
+decode_short_url, 2
+get_latest_tweet_id, 10
+load_tweets_db, 12
+register_db_backend, 14
+search_twitter_and_store, 18
+strip_retweets, 22
+[[,twitterObjList-method
+(status-class), 21
+as.data.frame,status-method
+(status-class), 21
+as.data.frame,twitterObj-method
+(status-class), 21
+as.data.frame,user-method (user-class),
+27
+availableTrendLocations (getTrends), 8
+buildStatus (status-class), 21
+buildUser (user-class), 27
+closestTrendLocations (getTrends), 8
+created (user-class), 27
+created,status-method (status-class), 21
+created,user-method (user-class), 27
+data.frame, 3, 21, 25, 28
+decode_short_url, 2
+deleteStatus (updateStatus), 26
+#### #### Description(user-class), 27
+#### Description,user-method (user-class), 27
+directMessage, 4, 5, 25
+directMessage (directMessage-class), 3
+directMessage-class, 3
+dmDestroy, 3, 4
+dmDestroy (dmGet), 4
+dmFactory (directMessage-class), 3
+dmGet, 4, 4
+dmSend, 4, 24
+dmSend (dmGet), 4
+dmSent (dmGet), 4
+favorited (status-class), 21
+favorited,status-method (status-class),
+21
+favorites, 5
+favoritesCount (user-class), 27
+favoritesCount,user-method
+(user-class), 27
+followersCount (user-class), 27
+followersCount,user-method
+(user-class), 27
+followRequestSent (user-class), 27
+followRequestSent,user-method
+(user-class), 27
+30
+INDEX 31
+friendsCount (user-class), 27
+friendsCount,user-method (user-class),
+27
+friendships, 6
+GET, 9, 16, 18, 20, 24, 26
+get_latest_tweet_id, 10
+getCurRateLimitInfo, 7
+getTrends, 8
+getTwitterOAuth (registerTwitterOAuth),
+13
+getUser, 6, 9, 25
+homeTimeline (timelines), 24
+id (status-class), 21
+id,status-method (status-class), 21
+id,user-method (user-class), 27
+import_obj (import_statuses), 11
+import_statuses, 11
+import_trends (import_statuses), 11
+import_users (import_statuses), 11
+json_to_statuses (import_statuses), 11
+json_to_trends (import_statuses), 11
+json_to_users (import_statuses), 11
+lastStatus (user-class), 27
+lastStatus,user-method (user-class), 27
+listedCount (user-class), 27
+listedCount,user-method (user-class), 27
+load_tweets_db, 12, 14
+load_users_db, 14
+load_users_db (load_tweets_db), 12
+location (user-class), 27
+location,user-method (user-class), 27
+lookup_statuses (showStatus), 20
+lookupUsers (getUser), 9
+mentions, 10
+mentions (timelines), 24
+name (user-class), 27
+name,user-method (user-class), 27
+POST, 20
+profileImageUrl (user-class), 27
+profileImageUrl,user-method
+(user-class), 27
+protected (user-class), 27
+protected,user-method (user-class), 27
+register_db_backend, 11, 12, 14, 18, 19
+register_mysql_backend, 12
+register_mysql_backend
+(register_db_backend), 14
+register_sqlite_backend, 12
+register_sqlite_backend
+(register_db_backend), 14
+registerTwitterOAuth, 5, 7, 13, 16
+replyToSID (status-class), 21
+replyToSID,status-method
+(status-class), 21
+replyToSN (status-class), 21
+replyToSN,status-method (status-class),
+21
+replyToUID (status-class), 21
+replyToUID,status-method
+(status-class), 21
+resource_families
+(getCurRateLimitInfo), 7
+retweetCount (status-class), 21
+retweetCount,status-method
+(status-class), 21
+retweeted (status-class), 21
+retweeted,status-method (status-class),
+21
+retweeters (retweets), 15
+retweets, 15
+retweetsOfMe (timelines), 24
+Rtweets (searchTwitter), 16
+screenName (user-class), 27
+screenName,status-method
+(status-class), 21
+screenName,user-method (user-class), 27
+search_twitter_and_store, 18
+searchTwitteR (searchTwitter), 16
+searchTwitter, 16, 18, 19
+setRefClass, 3, 4, 21, 22, 27, 28
+setup_twitter_oauth, 13, 19
+show,directMessage-method
+(directMessage-class), 3
+show,status-method (status-class), 21
+show,twitterObjList-method
+(status-class), 21
+show,user-method (user-class), 27
+showStatus, 15, 20
+status, 6, 11, 12, 17, 20, 22â28
+32 INDEX
+status (status-class), 21
+status-class, 21
+statusesCount (user-class), 27
+statusesCount,user-method (user-class),
+27
+statusFactory (status-class), 21
+statusSource (status-class), 21
+statusSource,status-method
+(status-class), 21
+statusText (status-class), 21
+statusText,status-method
+(status-class), 21
+stop, 10
+store_tweets_db, 14, 18, 19
+store_tweets_db (load_tweets_db), 12
+store_users_db, 14
+store_users_db (load_tweets_db), 12
+strip_retweets, 22
+taskStatus, 23
+text,status-method (status-class), 21
+timelines, 24
+Token, 19, 20, 29
+truncated (status-class), 21
+truncated,status-method (status-class),
+21
+tweet (updateStatus), 26
+tweetCount (user-class), 27
+tweetCount,user-method (user-class), 27
+twListToDF, 25
+updateStatus, 26
+use_oauth_token, 29
+user, 4, 5, 9â12, 23â25
+user (user-class), 27
+user-class, 27
+userFactory (user-class), 27
+userTimeline, 22
+userTimeline (timelines), 24
+userURL (user-class), 27
+userURL,user-method (user-class), 27
+verified (user-class), 27
+verified,user-method (user-class), 27

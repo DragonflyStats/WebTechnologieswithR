@@ -1,0 +1,89 @@
+
+
+friendships A function to detail relations between yourself & other users
+Description
+This function will accept a list of other Twitter users and will detail if they follow you and/or you
+follow them.
+### Usage
+friendships(screen_names = character(), user_ids = character(), ...)
+Arguments
+screen_names A vector of one or more Twitter screen names
+user_ids A vector of one or more Twitter user id values
+... Any other arguments to pass to RCurl
+### Details
+The combined number of screen names and user ids may not exceed 100. Any non-existent users
+will be dropped from the output
+getCurRateLimitInfo 7
+Value
+A data.frame, one row for each user requested with columns name, screen_name, id, following
+and followed_by. The latter two columns will be TRUE or FALSE depending on that user’s relations
+with your account.
+### Author(s)
+Jeff Gentry
+References
+https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
+See Also
+registerTwitterOAuth
+### Examples
+## Not run:
+friendships()
+## End(Not run)
+getCurRateLimitInfo A function to retrieve current rate limit information
+Description
+Will retrieve the current rate limit information for the authenticated user, displayed as a data.frame
+displaying specifc information for every Twitter resource
+### Usage
+getCurRateLimitInfo(resources=resource_families, ...)
+Arguments
+resources A character vector of specific resources to get information for
+... Optional arguments to pass to cURL
+### Details
+By default, all known resource families will be polled. These families are contained in the object
+resource_families. If you would like to filter this down you may tweak the resources argument.
+The full list of allowed values in resources is as follows: lists, application, friendships,
+blocks, geo, users, followers, statuses, help, friends, direct_messages, account, favorites,
+saved_searches, search, trends.
+8 getTrends
+Value
+A four column data.frame with columns resource, limit, remaining and reset. These detail the
+specific resource name, the rate limit for that block, the number of calls remaining and the time the
+rate limit will be reset in UTC time.
+### Author(s)
+Jeff Gentry
+### Examples
+## Not run:
+zz <- getCurRateLimitInfo(c("lists", "users"))
+## End(Not run)
+getTrends Functions to view Twitter trends
+Description
+These functions will allow you to interact with the trend portion of the Twitter API
+### Usage
+availableTrendLocations(...)
+closestTrendLocations(lat, long, ...)
+getTrends(woeid, exclude=NULL, ...)
+Arguments
+woeid A numerical identification code describing a location, a Yahoo! Where On Earth
+ID
+lat A numerical latitude value, between -180 and 180 inclusive. West is negative,
+East is positive
+long A numerical longitude value, between -180 and 180 inclusive. South is negative,
+North is positive
+exclude If set to hashtags, will exclude hashtags
+... Additional arguments to be passed to RCurl
+### Details
+The availableTrendLocations and closestTrendLocations functions will return a data.frame
+with three columns - name, country and woeid. The closestTrendLocations function will return
+the locations closest to the specified latitude and longitude.
+The getTrends function takes a specified woeid and returns the trending topics associated with that
+woeid. It returns a data.frame with the columns being name, url, promoted_content, query and
+woeid - one row per trend.
+getUser 9
+Value
+A data.frame with the columns specified in ### Details above
+### Author(s)
+Jeff Gentry
+### Examples
+## Not run:
+woeid = availableTrendLocations[1, "woeid"]
+t1 <- getTrends(woeid)
+## End(Not run)

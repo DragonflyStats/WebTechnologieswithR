@@ -1,0 +1,60 @@
+user-class A container object to model Twitter users
+#### Description
+This class is designed to represent a user on Twitter, modeling information available
+### Details
+The user class is implemented as a reference class. This class was previously implemented as
+an S4 class, and for backward compatibility purposes the old S4 accessor methods have been left
+in, although new code should not be written with these. An instance of a generator for this class
+is provided as a convenience to the user as it is configured to handle most standard cases. To
+access this generator, user the object userFactory. Accessor set & get methods are provided
+for every field using reference class $accessors() methodology (see setRefClass for more ### Details).
+As an example, the screenName field could be accessed using object$getScreenName and
+object$setScreenName.
+The constructor of this object assumes that the user is passing in a JSON encoded Twitter user. It is
+also possible to directly pass in the </code></pre> #### Argument.
+Fields
+name: Name of the user
+screenName: Screen name of the user
+id: ID value for this user
+lastStatus: Last status update for the user
+#### Description: User's #### Description
+statusesCount: Number of status updates this user has had
+28 user-class
+followersCount: Number of followers for this user
+favoritesCount: Number of favorites for this user
+friendsCount: Number of followees for this user
+url: A URL associated with this user
+created: When this user was created
+protected: Whether or not this user is protected
+verified: Whether or not this user is verified
+location: Location of the user
+listedCount: The number of times this user appears in public lists
+followRequestSent: If authenticated via OAuth, will be TRUE if you've sent a friend request to
+this user
+profileImageUrl: URL of the user's profile image, if one exists
+Methods
+getFollowerIDs(n=NULL, ...): Will return a vector of twitter user IDs representing followers
+of this user, up to a maximum of n values. If n is NULL, all followers will be returned
+getFollowers(n=NULL, ...): Will return a list of user objects representing followers of this
+user, up to a maximum of n values. If n is NULL, all followers will be returned
+getFriendIDs(n=NULL, ...): Will return a vector of twitter user IDs representing users this user
+follows, up to a maximum of n values. If n is NULL, all friends will be returned
+getFriends(n=NULL, ...): Will return a list of user objects representing users this user follows,
+up to a maximum of n values. If n is NULL, all friendss will be returned
+toDataFrame(row.names=NULL, optional=FALSE): Converts this into a one row data.frame,
+with each field except for lastStatus representing a column. This can also be accomplished
+by the S4 style as.data.frame(objectName).
+### Author(s)
+Jeff Gentry
+See Also
+status, setRefClass
+### Examples
+## This example is run, but likely not how you want to do things
+us <- userFactory$new(screenName="test", name="Joe Smith")
+us$getScreenName()
+us$getName()
+## Not run:
+## Assume 'json' is the return from a Twitter call
+us <- userFactory$new(json)
+us$getScreenName()
+## End(Not run)
